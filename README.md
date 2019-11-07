@@ -3,7 +3,7 @@ Basic GraphQL-Springboot-Neo4j skeleton app
 
 ## pre-requisites:
 - java/maven
-- neo4j instance running somewhere. code assumes localhost:7687, neo4j/neo credentials, obv this is modifiable
+- neo4j instance running somewhere. code assumes ```localhost:7687```, ```neo4j/neo``` credentials, obv this is modifiable
 - to get the actual data coming back - create some ```Employee``` nodes in the graph :
 
 ``` create (e1:Employee) set e1.name = "Joe" set e1.title = "UFO Operator"```
