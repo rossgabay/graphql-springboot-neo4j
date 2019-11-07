@@ -5,22 +5,27 @@ import com.rgabay.graphql.pojo.Employee;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.neo4j.driver.v1.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Slf4j
 public class Query implements GraphQLQueryResolver, AutoCloseable {
-    private final Driver driver = GraphDatabase.driver("bolt://localhost:7687",
-            AuthTokens.basic("neo4j", "neo"));;
+
+    private static final String neo_url = "bolt://localhost:7687";
+    private static final String neo_user = "neo4j";
+    private static final String neo_password = "neo";
+
+    private final Driver driver = GraphDatabase.driver(neo_url,
+            AuthTokens.basic("neo4j", "neo"));
 
     public List<Employee> employees() {
 
         final String query = "MATCH (e:Employee) return e";
-        List<Employee> response = new ArrayList<>();
-        response.add(new Employee("Test", "Test"));
+        List<Employee> response;
 
         try (Session session = driver.session()) {
             response = session.readTransaction(tx -> {
