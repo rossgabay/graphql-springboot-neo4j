@@ -1,0 +1,13 @@
+type Employee {
+  title: String!
+  name: String
+}
+
+schema {
+  query: Query
+}
+
+type Query {
+  employees: [Employee]
+}
+
